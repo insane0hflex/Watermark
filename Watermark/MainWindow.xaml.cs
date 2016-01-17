@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using Waterwark.Utilities;
+using Watermark.Utilities;
 
-namespace Waterwark
+namespace Watermark
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

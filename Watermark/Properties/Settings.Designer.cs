@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Waterwark.Properties {
+namespace Watermark.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

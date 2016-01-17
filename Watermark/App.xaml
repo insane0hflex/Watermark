@@ -1,7 +1,7 @@
-﻿<Application x:Class="Waterwark.App"
+﻿<Application x:Class="Watermark.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Waterwark"
+             xmlns:local="clr-namespace:Watermark"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
