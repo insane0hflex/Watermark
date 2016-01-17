@@ -1,0 +1,45 @@
+﻿<Window x:Class="Waterwark.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Waterwark"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1280">
+
+    <Grid>
+
+
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open"/>
+                    <MenuItem Header="Save" Click="MenuItem_Save_Click" />
+                    <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
+                </MenuItem>
+            </Menu>
+            <StackPanel Background="#FFF3F4F5"/>
+        </DockPanel>
+
+        <Button x:Name="btn_createWatermarkOnImage" Content="Put Watermark on Image" HorizontalAlignment="Left" Margin="26,46,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkOnImage_Click" Height="43" Background="#FFEAEAEA" Foreground="Black"/>
+
+
+        <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="240" Margin="26,290,0,0" VerticalAlignment="Top" Width="360" Stretch="Fill" />
+
+
+        <Image x:Name="img_watermarkPreview" Height="240" Width="360" Margin="432,290,480,163" Stretch="Fill" />
+
+        <Image x:Name="img_previewWatermarkAppliedToImage" HorizontalAlignment="Right" Height="240" Margin="0,290,38,0"  VerticalAlignment="Top" Width="360" Stretch="Fill" />
+
+        <ComboBox x:Name="comboBox_watermarkAlignment" HorizontalAlignment="Left" Margin="338,46,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="178" Height="45">
+            <ComboBoxItem HorizontalAlignment="Left" Width="176" Height="25">
+                Top Left
+            </ComboBoxItem>
+            <ComboBoxItem Content="Top Right" HorizontalAlignment="Left" Width="176" Height="25"/>
+            <ComboBoxItem Content="Bottom Left" HorizontalAlignment="Left" Width="176" Height="25" />
+            <ComboBoxItem Content="Bottom Right" HorizontalAlignment="Left" Width="176" Height="25" />
+            <ComboBoxItem Content="Center" HorizontalAlignment="Left" Width="176" Height="25" />
+
+        </ComboBox>
+    </Grid>
+</Window>
