@@ -98,7 +98,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\placeholder.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\testBaseFallout4.png" />
     <Resource Include="Images\testSvaalbardWatermark.png" />

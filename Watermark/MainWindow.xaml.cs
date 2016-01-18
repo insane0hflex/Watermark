@@ -30,14 +30,22 @@ namespace Watermark
     public partial class MainWindow : Window
     {
 
-        string rootFolderFilePath;
+        private string rootFolderFilePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\"));
+        private string baseImageFilePath;
+        private string waterMarkImageFilePath;
+
         Bitmap baseImage;
         Bitmap waterMarkImage;
         Bitmap finalImage;
 
+        Bitmap missingImage;
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            missingImage = (Bitmap)System.Drawing.Image.FromFile(rootFolderFilePath + @"Images\placeholder.png");
 
         }
 
@@ -48,21 +56,28 @@ namespace Watermark
             try
             {
 
+                if(sourceFilePath != "")
+                {
+                    baseImage = (Bitmap)System.Drawing.Image.FromFile(sourceFilePath);
+                }
+                else
+                {
+                    baseImage = (Bitmap)System.Drawing.Image.FromFile(rootFolderFilePath + @"Images\placeholder.png");
+                }
 
-                //baseImage = (Bitmap)System.Drawing.Image.FromFile(sourceFilePath);
+                if (sourceFilePath != "")
+                {
+                    waterMarkImage = (Bitmap)System.Drawing.Image.FromFile(watermarkImageFilePath);
+                }
+                else
+                {
+                    waterMarkImage = (Bitmap)System.Drawing.Image.FromFile(rootFolderFilePath + @"Images\placeholder.png");
+                }
 
-                baseImage = GetImageFile();
 
                 //for some reason the (implicit?) casting up from 24bit depth to 32bit depth messes up the bmp
                 //properties of Horizontal and Veritical resolution to like 95.9. This explicitly sets it back to 100%
                 //baseImage.SetResolution(100, 100);
-
-                img_basePreview.Source = new BitmapImage(new Uri(sourceFilePath));
-
-
-                waterMarkImage = (Bitmap)System.Drawing.Image.FromFile(watermarkImageFilePath);
-
-                img_watermarkPreview.Source = new BitmapImage(new Uri(watermarkImageFilePath));
 
 
                 finalImage = new Bitmap(baseImage.Width, baseImage.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -143,9 +158,11 @@ namespace Watermark
 
         private void btn_createWatermarkOnImage_Click(object sender, RoutedEventArgs e)
         {
-            rootFolderFilePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\"));
 
-            CreateWatermarkOnImage(rootFolderFilePath + @"Images\testBaseFallout4.png", rootFolderFilePath + @"\Images\testSvaalbardWatermark.png");
+            //CreateWatermarkOnImage(rootFolderFilePath + @"Images\testBaseFallout4.png", rootFolderFilePath + @"\Images\testSvaalbardWatermark.png");
+
+            CreateWatermarkOnImage(baseImageFilePath, waterMarkImageFilePath);
+
         }
 
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
@@ -160,9 +177,9 @@ namespace Watermark
 
 
         /// <summary>
-        /// Load a user specified .ini file by prompting the user to select the location with a FileDialog
+        /// return a string of the image's file path
         /// </summary>
-        private Bitmap GetImageFile()
+        private string GetImageFilePath()
         {
             // Create OpenFileDialog 
             Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog();
@@ -172,7 +189,7 @@ namespace Watermark
             fileDialog.Filter = "Images (*.png)|*.png";
 
             //fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            fileDialog.InitialDirectory = Environment.CurrentDirectory;
+            fileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\"));
 
             bool? userConfirmed = fileDialog.ShowDialog();
 
@@ -181,23 +198,33 @@ namespace Watermark
                 // Get the selected file name and display in a TextBox 
                 if (userConfirmed == true)
                 {
-                    Bitmap selectedImage = new Bitmap(fileDialog.FileName);
-                    return selectedImage;
+                    return fileDialog.FileName;
                 }
                 else
                 {
-#warning return a dummy image instead ie a small 40x40 image with "missing" or something
-                    return null;
+                    return "";
                 }
             }
             catch (Exception ex)
             {
-                string errorMessage = "Error occurred trying to load (read) the selected image file.\n\n";
+                string errorMessage = "Error occurred trying to load (read) the selected image file." + Environment.NewLine;
                 CustomMessageBox.Error(errorMessage, ex);
 
-                return null;
+                return "";
             }
         }
 
+        private void btn_loadBaseImage_Click(object sender, RoutedEventArgs e)
+        {
+
+            baseImageFilePath = GetImageFilePath();
+            img_basePreview.Source = new BitmapImage(new Uri(baseImageFilePath));
+        }
+
+        private void btn_loadWatermarkImage_Click(object sender, RoutedEventArgs e)
+        {
+            waterMarkImageFilePath = GetImageFilePath();
+            img_watermarkPreview.Source = new BitmapImage(new Uri(waterMarkImageFilePath));
+        }
     }
 }
