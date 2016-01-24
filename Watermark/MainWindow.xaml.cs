@@ -177,7 +177,8 @@ namespace Watermark
 
 
         /// <summary>
-        /// return a string of the image's file path
+        /// return a string of the selected image's file path.
+        /// Used to create a new bitmap image from the image's file path (uri), like so:  new BitmapImage(new Uri(baseImageFilePath));
         /// </summary>
         private string GetImageFilePath()
         {
@@ -214,17 +215,48 @@ namespace Watermark
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void btn_loadBaseImage_Click(object sender, RoutedEventArgs e)
         {
 
             baseImageFilePath = GetImageFilePath();
-            img_basePreview.Source = new BitmapImage(new Uri(baseImageFilePath));
+
+            //if image selected - create image
+            if (baseImageFilePath != "")
+            {
+                img_basePreview.Source = new BitmapImage(new Uri(baseImageFilePath));
+                img_basePreview.ToolTip = baseImageFilePath;
+            }
+            else
+            {
+
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void btn_loadWatermarkImage_Click(object sender, RoutedEventArgs e)
         {
             waterMarkImageFilePath = GetImageFilePath();
-            img_watermarkPreview.Source = new BitmapImage(new Uri(waterMarkImageFilePath));
+
+            if(waterMarkImageFilePath != "")
+            {
+                img_watermarkPreview.Source = new BitmapImage(new Uri(waterMarkImageFilePath));
+                img_watermarkPreview.ToolTip = waterMarkImageFilePath;
+            }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void btn_createWatermarkImagePreview_Click(object sender, RoutedEventArgs e)
+        {
+            //finalImage.Source = baseImage;
+        }
+
+
     }
 }

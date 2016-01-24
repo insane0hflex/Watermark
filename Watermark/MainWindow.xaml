@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watermark"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="Watermark" Height="720" Width="1280">
 
     <Grid>
 
@@ -21,29 +21,37 @@
         </DockPanel>-->
 
 
-        <Button x:Name="btn_createWatermarkOnImage" Content="Put Watermark on Image" HorizontalAlignment="Left" Margin="26,46,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkOnImage_Click" Height="43" Background="#FFEAEAEA" Foreground="Black"/>
+        <Button x:Name="btn_createWatermarkOnImage" Content="Put Watermark on Image" HorizontalAlignment="Left" Margin="1017,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkOnImage_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Apply the watermark on the image and save."/>
+
+        <Button x:Name="btn_previewWatermarkOnImage" Content="Preview Watermark on Image" HorizontalAlignment="Left" Margin="665,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkImagePreview_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Generate a preview of the image with the watermark applied."/>
+
+        <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="225" Margin="26,170,0,0" VerticalAlignment="Top" Width="315" Stretch="Fill" />
 
 
-        <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="150" Margin="26,260,0,0" VerticalAlignment="Top" Width="210" Stretch="Fill" />
-
-
-        <Image x:Name="img_watermarkPreview" Height="150" Width="210" Margin="26,475,1036,64" Stretch="Fill" />
+        <Image x:Name="img_watermarkPreview" Margin="26,455,931,10" Stretch="Fill" />
 
         <Image x:Name="img_previewWatermarkAppliedToImage" HorizontalAlignment="Right" Height="480" Margin="0,145,32,0"  VerticalAlignment="Top" Width="720" Stretch="Fill" />
 
-        <ComboBox x:Name="comboBox_watermarkAlignment" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="338,46,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="178" Height="45">
+        <ComboBox x:Name="comboBox_watermarkAlignment" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="33,44,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="178" Height="45">
             <ComboBoxItem Content="Top Left" HorizontalAlignment="Left" Width="176" Height="25" />
             <ComboBoxItem Content="Top Right" HorizontalAlignment="Left" Width="176" Height="25"/>
             <ComboBoxItem Content="Bottom Left" HorizontalAlignment="Left" Width="176" Height="25" />
             <ComboBoxItem Content="Bottom Right" HorizontalAlignment="Left" Width="176" Height="25" />
             <ComboBoxItem Content="Center" HorizontalAlignment="Left" Width="176" Height="25" />
-
         </ComboBox>
-        <Label x:Name="lbl_baseImagePreview" Content="Base Image" HorizontalAlignment="Left" Margin="26,194,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="lbl_watermarkImagePreview" Content="Water Image" HorizontalAlignment="Left" Margin="26,444,0,0" VerticalAlignment="Top" Width="124"/>
+
+        <ComboBox x:Name="comboBox_finalImageFormat" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="272,42,0,0" SelectedIndex="0" VerticalAlignment="Top" Width="178" Height="45">
+            <ComboBoxItem Content="PNG" HorizontalAlignment="Left" Width="176" Height="25" />
+            <ComboBoxItem Content="JPG" HorizontalAlignment="Left" Width="176" Height="25"/>
+            <ComboBoxItem Content="BMP" HorizontalAlignment="Left" Width="176" Height="25" />
+        </ComboBox>
+
+
+        <Label x:Name="lbl_baseImagePreview" Content="Base Image" HorizontalAlignment="Left" Margin="26,122,0,0" VerticalAlignment="Top" Width="124"/>
+        <Label x:Name="lbl_watermarkImagePreview" Content="Watermark Image" HorizontalAlignment="Left" Margin="26,405,0,0" VerticalAlignment="Top" Width="124"/>
         <Label x:Name="lbl_finalImagePreview" Content="Final Image" HorizontalAlignment="Left" Margin="520,114,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn_loadBaseImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,200,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadBaseImage_Click"/>
-        <Button x:Name="btn_loadWatermarkImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,450,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadWatermarkImage_Click"/>
-        <TextBox x:Name="txtBx_baseImageFilePath" HorizontalAlignment="Left" Height="23" Margin="26,232,0,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top" Width="245"/>
+        <Button x:Name="btn_loadBaseImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,128,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadBaseImage_Click"/>
+        <Button x:Name="btn_loadWatermarkImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,411,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadWatermarkImage_Click"/>
+
     </Grid>
 </Window>
