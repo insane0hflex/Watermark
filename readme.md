@@ -4,7 +4,7 @@
 
 _A simple app to generate a watermark over an image_
 
-
+![Alt text](https://raw.githubusercontent.com/insane0hflex/Watermark/master/Watermark/Images/preview.png)
 
 Supports:
   
