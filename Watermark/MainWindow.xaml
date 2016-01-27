@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watermark"
         mc:Ignorable="d"
-        Title="Watermark" Height="720" Width="1280">
+        Title="Watermark" Height="720" Width="1280" ResizeMode="NoResize">
 
     <Grid>
 
@@ -21,14 +21,14 @@
         </DockPanel>-->
 
 
-        <Button x:Name="btn_createWatermarkOnImage" Content="Put Watermark on Image" HorizontalAlignment="Left" Margin="1017,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkOnImage_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Apply the watermark on the image and save."/>
+        <Button x:Name="btn_createWatermarkOnImage" Content="Put Watermark on Image" HorizontalAlignment="Left" Margin="860,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkOnImage_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Apply the watermark on the image and save."/>
 
-        <Button x:Name="btn_previewWatermarkOnImage" Content="Preview Watermark on Image" HorizontalAlignment="Left" Margin="665,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkImagePreview_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Generate a preview of the image with the watermark applied."/>
+        <Button x:Name="btn_previewWatermarkOnImage" Content="Preview Watermark on Image" HorizontalAlignment="Left" Margin="520,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkImagePreview_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Generate a preview of the image with the watermark applied."/>
 
-        <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="225" Margin="26,170,0,0" VerticalAlignment="Top" Width="315" Stretch="Fill" />
+        <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="240" Margin="26,134,0,0" VerticalAlignment="Top" Width="320" Stretch="Fill" />
 
 
-        <Image x:Name="img_watermarkPreview" Margin="26,455,931,10" Stretch="Fill" />
+        <Image x:Name="img_watermarkPreview" HorizontalAlignment="Left" Height="240" Width="320" Margin="26,410,931,55" Stretch="Fill" />
 
         <Image x:Name="img_previewWatermarkAppliedToImage" HorizontalAlignment="Right" Height="480" Margin="0,145,32,0"  VerticalAlignment="Top" Width="720" Stretch="Fill" />
 
@@ -47,11 +47,14 @@
         </ComboBox>
 
 
-        <Label x:Name="lbl_baseImagePreview" Content="Base Image" HorizontalAlignment="Left" Margin="26,122,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="lbl_watermarkImagePreview" Content="Watermark Image" HorizontalAlignment="Left" Margin="26,405,0,0" VerticalAlignment="Top" Width="124"/>
-        <Label x:Name="lbl_finalImagePreview" Content="Final Image" HorizontalAlignment="Left" Margin="520,114,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn_loadBaseImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,128,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadBaseImage_Click"/>
-        <Button x:Name="btn_loadWatermarkImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,411,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadWatermarkImage_Click"/>
+        <Label x:Name="lbl_baseImagePreview" Content="Base Image" HorizontalAlignment="Left" Margin="26,103,0,0" VerticalAlignment="Top" Width="74"/>
+        <Label x:Name="lbl_watermarkImagePreview" Content="Watermark Image" HorizontalAlignment="Left" Margin="26,379,0,0" VerticalAlignment="Top" Width="124"/>
+        <Label x:Name="lbl_finalImagePreview" Content="Final Image" HorizontalAlignment="Left" Margin="520,103,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_loadBaseImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,109,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadBaseImage_Click"/>
+        <Button x:Name="btn_loadWatermarkImage" Content="Load Image" HorizontalAlignment="Left" Margin="161,385,0,0" VerticalAlignment="Top" Width="75" Click="btn_loadWatermarkImage_Click"/>
+        <Label x:Name="lbl_watermarkAlignment" Content="Watermark Alignment" HorizontalAlignment="Left" Margin="33,13,0,0" VerticalAlignment="Top" Width="178"/>
+        <Label x:Name="lbl_imageFormat" Content="Output Image Format" HorizontalAlignment="Left" Margin="272,13,0,0" VerticalAlignment="Top" Width="178"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Margin="485,0,0,0" Stroke="Black" Width="5"/>
 
     </Grid>
 </Window>
