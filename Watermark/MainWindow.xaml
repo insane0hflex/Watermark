@@ -21,11 +21,25 @@
         </DockPanel>-->
 
 
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="245" Margin="10,134,0,0" Stroke="Black" VerticalAlignment="Top" Width="350"/>
+
+
+        <!--<DockPanel>
+            <Menu Height="26" DockPanel.Dock="Top" VerticalAlignment="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open"/>
+                    <MenuItem Header="Save" Click="MenuItem_Save_Click" />
+                    <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>-->
+
+
         <Button x:Name="btn_createWatermarkOnImage" Content="Put Watermark on Image" HorizontalAlignment="Left" Margin="860,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkOnImage_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Apply the watermark on the image and save."/>
 
         <Button x:Name="btn_previewWatermarkOnImage" Content="Preview Watermark on Image" HorizontalAlignment="Left" Margin="520,44,0,0" VerticalAlignment="Top" Width="245" Click="btn_createWatermarkImagePreview_Click" Height="43" Background="#FFEAEAEA" Foreground="Black" ToolTip="Generate a preview of the image with the watermark applied."/>
 
-        <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="240" Margin="26,134,0,0" VerticalAlignment="Top" Width="320" Stretch="Fill" />
+        <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="220" Margin="26,145,0,0" VerticalAlignment="Top" Width="314" Stretch="Fill" />
 
 
         <Image x:Name="img_watermarkPreview" HorizontalAlignment="Left" Height="240" Width="320" Margin="26,410,931,55" Stretch="Fill" />
