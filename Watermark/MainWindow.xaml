@@ -23,6 +23,7 @@
 
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="245" Margin="10,134,0,0" Stroke="Black" VerticalAlignment="Top" Width="350"/>
 
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="245" Margin="10,410,0,0" Stroke="Black" VerticalAlignment="Top" Width="350"/>
 
         <!--<DockPanel>
             <Menu Height="26" DockPanel.Dock="Top" VerticalAlignment="Top">
@@ -42,7 +43,7 @@
         <Image x:Name="img_basePreview" HorizontalAlignment="Left" Height="220" Margin="26,145,0,0" VerticalAlignment="Top" Width="314" Stretch="Fill" />
 
 
-        <Image x:Name="img_watermarkPreview" HorizontalAlignment="Left" Height="240" Width="320" Margin="26,410,931,55" Stretch="Fill" />
+        <Image x:Name="img_watermarkPreview" HorizontalAlignment="Left" Height="240" Width="320" Margin="26,415,0,40" Stretch="Fill" />
 
         <Image x:Name="img_previewWatermarkAppliedToImage" HorizontalAlignment="Right" Height="480" Margin="0,145,32,0"  VerticalAlignment="Top" Width="720" Stretch="Fill" />
 

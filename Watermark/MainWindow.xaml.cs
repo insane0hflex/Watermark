@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Watermark.Utilities;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Watermark
 {
@@ -30,7 +22,7 @@ namespace Watermark
     public partial class MainWindow : Window
     {
 
-        private string rootFolderFilePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\"));
+        private string rootFolderFilePath = Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\"));
         private string baseImageFilePath;
         private string waterMarkImageFilePath;
 
@@ -38,24 +30,27 @@ namespace Watermark
         Bitmap waterMarkImage;
         Bitmap finalImage;
 
-        Bitmap missingImage;
-
 
         public MainWindow()
         {
             InitializeComponent();
 
-            missingImage = (Bitmap)System.Drawing.Image.FromFile(rootFolderFilePath + @"Images\placeholder.png");
+            img_basePreview.Source = new BitmapImage(new Uri(rootFolderFilePath + @"Images\placeholder.png"));
+            img_watermarkPreview.Source = new BitmapImage(new Uri(rootFolderFilePath + @"Images\placeholder.png"));
 
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceFilePath"></param>
+        /// <param name="watermarkImageFilePath"></param>
         public void CreateWatermarkOnImage(string sourceFilePath, string watermarkImageFilePath)
         {
 
             try
             {
-
                 if(sourceFilePath != "")
                 {
                     baseImage = (Bitmap)System.Drawing.Image.FromFile(sourceFilePath);
@@ -65,7 +60,8 @@ namespace Watermark
                     baseImage = (Bitmap)System.Drawing.Image.FromFile(rootFolderFilePath + @"Images\placeholder.png");
                 }
 
-                if (sourceFilePath != "")
+                //wtf? why was this sourceFilePath before? changing to watermarkImageFilePath
+                if (watermarkImageFilePath != "")
                 {
                     waterMarkImage = (Bitmap)System.Drawing.Image.FromFile(watermarkImageFilePath);
                 }
@@ -74,11 +70,10 @@ namespace Watermark
                     waterMarkImage = (Bitmap)System.Drawing.Image.FromFile(rootFolderFilePath + @"Images\placeholder.png");
                 }
 
-
+                // 5 17 2016 - this was an old issue - is it still relevant later on perhaps...?
                 //for some reason the (implicit?) casting up from 24bit depth to 32bit depth messes up the bmp
                 //properties of Horizontal and Veritical resolution to like 95.9. This explicitly sets it back to 100%
                 //baseImage.SetResolution(100, 100);
-
 
                 finalImage = new Bitmap(baseImage.Width, baseImage.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
@@ -88,36 +83,32 @@ namespace Watermark
 
                 using (Graphics graphics = Graphics.FromImage(finalImage))
                 {
+                    //Specifies that when a color is rendered, it is blended with the background color.
+                    //The blend is determined by the alpha component of the color being rendered.
                     graphics.CompositingMode = CompositingMode.SourceOver;
-
 
                     graphics.DrawImage(baseImage, 0, 0);
 
                     //cast to ComboBoxItem is needed?
                     string alignmentSelection = ((ComboBoxItem)comboBox_watermarkAlignment.SelectedItem).Content.ToString();
-
-                    if (alignmentSelection == "Top Left")
+                    switch (alignmentSelection)
                     {
-                        graphics.DrawImage(waterMarkImage, 0, 0);
-                    }
-                    else if(alignmentSelection == "Top Right")
-                    {
-                        graphics.DrawImage(waterMarkImage, baseImage.Width - waterMarkImage.Width, 0);
-
-                    }
-                    else if (alignmentSelection == "Bottom Left")
-                    {
-                        graphics.DrawImage(waterMarkImage, 0, baseImage.Height- waterMarkImage.Height);
-
-                    }
-                    else if (alignmentSelection == "Bottom Right")
-                    {
-                        graphics.DrawImage(waterMarkImage, baseImage.Width - waterMarkImage.Width, baseImage.Height - waterMarkImage.Height);
-
-                    }
-                    else if (alignmentSelection == "Center")
-                    {
-                        graphics.DrawImage(waterMarkImage, (baseImage.Width / 2 - waterMarkImage.Width / 2), baseImage.Height / 2 - waterMarkImage.Height / 2);
+                        case "Top Left":
+                            graphics.DrawImage(waterMarkImage, 0, 0);
+                            break;
+                        case "Top Right":
+                            graphics.DrawImage(waterMarkImage, baseImage.Width - waterMarkImage.Width, 0);
+                            break;
+                        case "Bottom Left":
+                            graphics.DrawImage(waterMarkImage, 0, baseImage.Height - waterMarkImage.Height);
+                            break;
+                        case "Bottom Right":
+                            graphics.DrawImage(waterMarkImage, baseImage.Width - waterMarkImage.Width, baseImage.Height - waterMarkImage.Height);
+                            break;
+                        case "Center":
+                        default:
+                            graphics.DrawImage(waterMarkImage, (baseImage.Width / 2 - waterMarkImage.Width / 2), baseImage.Height / 2 - waterMarkImage.Height / 2);
+                            break;
                     }
 
                     //graphics.DrawImage(overlayImage, baseImage.Width - overlayImage.Width, baseImage.Height - overlayImage.Height);
@@ -126,27 +117,35 @@ namespace Watermark
 
                     string finalImageFileName = "watermarked_" + DateTime.Now.ToFileTime().ToString();
 
-                    finalImage.Save(rootFolderFilePath + @"\Images\" + finalImageFileName + ".png", ImageFormat.Png);
+
+                    string finalImageFormatSelection = ((ComboBoxItem)comboBox_finalImageFormat.SelectedItem).Content.ToString();
+                    switch (finalImageFormatSelection)
+                    {
+                        case "JPG":
+                            finalImage.Save(rootFolderFilePath + @"\Images\" + finalImageFileName + ".jpg", ImageFormat.Jpeg);
+                            break;
+                        case "BMP":
+                            finalImage.Save(rootFolderFilePath + @"\Images\" + finalImageFileName + ".bmp", ImageFormat.Bmp);
+                            break;
+                        case "PNG":
+                        default:
+                            finalImage.Save(rootFolderFilePath + @"\Images\" + finalImageFileName + ".png", ImageFormat.Png);
+                            break;
+                    }
 
 
                     //Update final watermarked image preview with the new watermarked image
                     img_previewWatermarkAppliedToImage.Source = new BitmapImage(new Uri(rootFolderFilePath + @"\Images\" + finalImageFileName + ".png", UriKind.Absolute));
 
-                    //maybe think of making a small library/nuget package of these "custom wpf message boxes"
-                    //CustomMessageBox.NotificationMessageBox("Created image!");
-
                 }
-
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
-
+                CustomMessageBox.Error("Failure in creating/saving the watermarked image.", ex);
             }
             finally
             {
+                //cleanup memory
                 baseImage.Dispose();
                 waterMarkImage.Dispose();
                 finalImage.Dispose();
@@ -155,7 +154,11 @@ namespace Watermark
 
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_createWatermarkOnImage_Click(object sender, RoutedEventArgs e)
         {
 
@@ -165,11 +168,23 @@ namespace Watermark
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Save_Click(object sender, RoutedEventArgs e)
         {
 
@@ -254,8 +269,38 @@ namespace Watermark
         /// </summary>
         private void btn_createWatermarkImagePreview_Click(object sender, RoutedEventArgs e)
         {
-            //finalImage.Source = baseImage;
+
         }
+
+
+        /// <summary>
+        /// WORK IN PROGRESS
+        /// Watermark all images in a choosen folder
+        /// </summary>
+        private void WatermarkAllImagesInThisDirectory()
+        {
+            //need to make sure there is a watermark image selected to use as the watermark
+            if(waterMarkImageFilePath != null)
+            {
+                //TODO make this get the chosen folder/directory location of files to replace
+                string directoryPathOfImages = Environment.CurrentDirectory;
+
+                foreach (string fileName in Directory.GetFiles(directoryPathOfImages))
+                {
+                    string fileExtension = Path.GetExtension(fileName).ToLower();
+
+                    if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".bmp")
+                    {
+                        CreateWatermarkOnImage(fileName, waterMarkImageFilePath);
+                    }
+                }
+            }
+            else
+            {
+                CustomMessageBox.Error("No watermark image selected!");
+            }
+        }
+
 
 
     }
